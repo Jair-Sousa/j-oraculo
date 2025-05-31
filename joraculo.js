@@ -3,7 +3,7 @@ const consultaOraculo = async () => {
   document.getElementById("pergunta").innerHTML = question;
 
   try {
-    const response = await fetch("http://localhost:3000/perguntar", {
+    const response = await fetch("https://j-oraculo-backend.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
