@@ -3,7 +3,7 @@ const consultaOraculo = async () => {
   document.getElementById("pergunta").innerHTML = question;
 
   try {
-    const response = await fetch("https://j-oraculo-backend.onrender.com/api/gemini", {
+    const response = await fetch("https://j-oraculo-backend.onrender.com/perguntar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
