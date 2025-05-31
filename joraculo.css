@@ -50,6 +50,29 @@ button{
     color: #F7F7F8;
 }
 
+button:hover{
+    background-color: #0E8B6A;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
 #pergunta{
     color: #F7F7F8;
+}
+
+.contact p{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #F3F6F9;
+}
+
+.contact a{
+    color: #10A37F;
+    text-decoration: none;
+}
+
+.contact a:hover{
+    color: #0E8B6A;
+    text-decoration: underline;
 }
