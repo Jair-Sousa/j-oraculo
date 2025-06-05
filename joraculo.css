@@ -1,3 +1,5 @@
+
+/* ... Início do estilo ...*/
 *{
     margin: 0;
     padding: 0;
@@ -6,8 +8,7 @@
 
 body{
     font-family: Arial, sans-serif;
-    background-color: #202123;
-    
+    background-color: #202123;    
 }
 
 #formQuestion{
@@ -24,7 +25,6 @@ body{
 h1{
     padding: 15px 15px;
     font-size: 2.5em;
-    /* box-shadow: #202123 0px 0px 7px; */
 }
 
 label{
@@ -40,6 +40,18 @@ input{
     padding-inline-start: 3%;
     font-size: 0.9em;
     align-items: center;
+}
+
+.falar{
+    background-color: #F3F6F9;
+    color: #202123;
+    width: 80px;
+    transition: opacity .3s;
+}
+
+.falar:hover{
+    background-color: #F3F6F9;
+    opacity: .9;
 }
 
 button{
@@ -75,4 +87,64 @@ button:hover{
 .contact a:hover{
     color: #0E8B6A;
     text-decoration: underline;
+}
+
+.contact span{
+    color: #F3F6F9;
+    font-weight: bold;
+    font-size: 2em;
+    transition: opacity .3s;
+}
+
+.contact span:hover{
+    opacity: .8;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: none;
+}
+
+#progress-inner {
+    width: 0;
+    height: 100%;
+    background: #FFD700; /* Cor amarela ouro */
+    transition: width 0.3s;
+}
+
+/* ...Fim do estilo... */
+
+/* Responsividade para telas pequenas */
+@media (max-width: 600px) {
+    #formQuestion {
+        width: 55%;
+        margin: 30px auto;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        padding: 10px 5px;
+    }
+
+    label {
+        font-size: 1em;
+        margin-top: 10px;
+    }
+
+    input, button {
+        width: 100%;
+        font-size: 1em;
+        margin-top: 10px;
+    }
+
+    .contact span {
+        font-size: 1.2em;
+    }
 }
