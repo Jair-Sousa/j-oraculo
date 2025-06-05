@@ -69,4 +69,76 @@ const consultaOraculo = async () => {
     document.getElementById("resposta").innerHTML = "Erro ao consultar o oráculo.";
   }
 };
+
+
+// ...código para perguntar em áudio...
+let recognition;
+let isRecording = false;
+
+function setupSpeechRecognition() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert('Reconhecimento de voz não suportado neste navegador.');
+    return null;
+  }
+  const rec = new webkitSpeechRecognition();
+  rec.lang = 'pt-BR';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+  return rec;
+}
+
+const btnFalar = document.getElementById('btn-falar');
+const questionInput = document.getElementById('question');
+
+if (btnFalar && questionInput) {
+  btnFalar.addEventListener('mousedown', () => {
+    recognition = setupSpeechRecognition();
+    if (!recognition) return;
+    isRecording = true;
+    btnFalar.innerText = "🎤 Gravando...";
+    recognition.start();
+
+    recognition.onresult = function(event) {
+      const texto = event.results[0][0].transcript;
+      questionInput.value = texto;
+      btnFalar.innerText = "🎤 Falar";
+      isRecording = false;
+      consultaOraculo(); // Envia automaticamente ao soltar
+    };
+
+    recognition.onerror = function(event) {
+      btnFalar.innerText = "🎤 Falar";
+      isRecording = false;
+      alert('Erro ao reconhecer áudio: ' + event.error);
+    };
+  });
+
+  // Para dispositivos móveis, use touchstart/touchend
+  btnFalar.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    btnFalar.dispatchEvent(new Event('mousedown'));
+  });
+
+  btnFalar.addEventListener('mouseup', () => {
+    if (recognition && isRecording) {
+      recognition.stop();
+      btnFalar.innerText = "🎤 Falar";
+      isRecording = false;
+    }
+  });
+
+  btnFalar.addEventListener('mouseleave', () => {
+    if (recognition && isRecording) {
+      recognition.stop();
+      btnFalar.innerText = "🎤 Falar";
+      isRecording = false;
+    }
+  });
+
+  btnFalar.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    btnFalar.dispatchEvent(new Event('mouseup'));
+  });
+}
+
 // ...Fim do código...
