@@ -72,6 +72,9 @@ const consultaOraculo = async () => {
 
 
 // ...código para perguntar em áudio...
+
+// ...existing code...
+
 let recognition;
 let isRecording = false;
 
@@ -92,6 +95,7 @@ const questionInput = document.getElementById('question');
 
 if (btnFalar && questionInput) {
   btnFalar.addEventListener('mousedown', () => {
+    if (isRecording) return;
     recognition = setupSpeechRecognition();
     if (!recognition) return;
     isRecording = true;
@@ -101,15 +105,20 @@ if (btnFalar && questionInput) {
     recognition.onresult = function(event) {
       const texto = event.results[0][0].transcript;
       questionInput.value = texto;
-      btnFalar.innerText = "🎤 Falar";
-      isRecording = false;
-      consultaOraculo(); // Envia automaticamente ao soltar
     };
 
     recognition.onerror = function(event) {
       btnFalar.innerText = "🎤 Falar";
       isRecording = false;
       alert('Erro ao reconhecer áudio: ' + event.error);
+    };
+
+    recognition.onend = function() {
+      btnFalar.innerText = "🎤 Falar";
+      isRecording = false;
+      if (questionInput.value.trim() !== '') {
+        consultaOraculo();
+      }
     };
   });
 
@@ -122,16 +131,12 @@ if (btnFalar && questionInput) {
   btnFalar.addEventListener('mouseup', () => {
     if (recognition && isRecording) {
       recognition.stop();
-      btnFalar.innerText = "🎤 Falar";
-      isRecording = false;
     }
   });
 
   btnFalar.addEventListener('mouseleave', () => {
     if (recognition && isRecording) {
       recognition.stop();
-      btnFalar.innerText = "🎤 Falar";
-      isRecording = false;
     }
   });
 
